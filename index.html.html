@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ATM - All Things Made-easy</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1e1e2f;
+    color: white;
+    margin: 0; padding: 0;
+  }
+  header {
+    background: #4b79a1;
+    padding: 15px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    background: #2d2f45;
+  }
+  nav button {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  nav button:hover, nav button.active {
+    background-color: #4b79a1;
+  }
+  main {
+    padding: 20px;
+    min-height: 60vh;
+  }
+  .hidden {
+    display: none;
+  }
+  /* Calculator styles */
+  #calculator {
+    background: #3b3f47;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #61dafb;
+    width: 320px;
+    margin: 20px auto;
+  }
+  #calc-display {
+    background: black;
+    font-size: 2rem;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: right;
+    margin-bottom: 15px;
+    min-height: 50px;
+    user-select: none;
+    overflow-wrap: break-word;
+  }
+  #calculator button {
+    width: 70px;
+    height: 55px;
+    margin: 5px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+    color: white;
+  }
+  #calculator button.operator {
+    background: #ff9500;
+  }
+  #calculator button.operator:hover {
+    background: #ffa733;
+  }
+  #calculator button.number {
+    background: #50565e;
+  }
+  #calculator button.number:hover {
+    background: #686e76;
+  }
+  #calculator button.control {
+    background: #d9534f;
+  }
+  #calculator button.control:hover {
+    background: #e2706b;
+  }
+  #calculator button.equals {
+    background: #28a745;
+    width: 150px;
+  }
+  #calculator button.equals:hover {
+    background: #3ec85c;
+  }
+  /* Forms and buttons */
+  form {
+    max-width: 400px;
+    margin: 20px auto;
+    background: #2d2f45;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+  input[type=text], input[type=number], select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: none;
+    font-size: 1rem;
+  }
+  button.submit-btn {
+    background: #4b79a1;
+    border: none;
+    padding: 12px;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+  }
+  button.submit-btn:hover {
+    background: #3a5f82;
+  }
+  /* Game placeholder */
+  #game-section {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 40px;
+  }
+  /* Bonus Feature */
+  #bonus-section {
+    text-align: center;
+    margin-top: 30px;
+  }
+  #bonus-section button {
+    background: #6a1b9a;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  #bonus-section button:hover {
+    background: #7e25a8;
+  }
+  #bonus-result {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<header>ATM - All Things Made-easy</header>
+
+<nav>
+  <button class="tab-btn active" data-tab="bank">Bank Transfer</button>
+  <button class="tab-btn" data-tab="airtime">Airtime Recharge</button>
+  <button class="tab-btn" data-tab="games">Games</button>
+  <button class="tab-btn" data-tab="calculator">Calculator</button>
+  <button class="tab-btn" data-tab="bonus">Bonus</button>
+</nav>
+
+<main>
+  <!-- Bank Transfer -->
+  <section id="bank" class="tab-content">
+    <form id="bank-form">
+      <label for="bank-account">Bank Account Number</label>
+      <input type="text" id="bank-account" name="bank-account" placeholder="Enter account number" required pattern="\d{10,18}" title="10 to 18 digits" />
+
+      <label for="bank-amount">Amount (₦)</label>
+      <input type="number" id="bank-amount" name="bank-amount" placeholder="Enter amount" min="1" required />
+
+      <label for="bank-bank">Select Bank</label>
+      <select id="bank-bank" name="bank-bank" required>
+        <option value="" disabled selected>Choose bank</option>
+        <option>Access Bank</option>
+        <option>GTBank</option>
+        <option>First Bank</option>
+        <option>UBA</option>
+        <option>Zenith Bank</option>
+      </select>
+
+      <button type="submit" class="submit-btn">Transfer</button>
+    </form>
+  </section>
+
+  <!-- Airtime Recharge -->
+  <section id="airtime" class="tab-content hidden">
+    <form id="airtime-form">
+      <label for="phone-number">Phone Number</label>
+      <input type="text" id="phone-number" name="phone-number" placeholder="Enter phone number" required pattern="\d{11}" title="11 digits" />
+
+      <label for="network">Network Provider</label>
+      <select id="network" name="network" required>
+        <option value="" disabled selected>Choose network</option>
+        <option>MTN</option>
+        <option>GLO</option>
+        <option>Airtel</option>
+        <option>9mobile</option>
+      </select>
+
+      <label for="airtime-amount">Amount (₦)</label>
+      <input type="number" id="airtime-amount" name="airtime-amount" placeholder="Enter amount" min="50" required />
+
+      <button type="submit" class="submit-btn">Recharge</button>
+    </form>
+  </section>
+
+  <!-- Games -->
+  <section id="games" class="tab-content hidden">
+    <div id="game-section">
+      <p>Play some fun games coming soon!</p>
+      <button id="roll-dice-btn">Roll a Dice 🎲</button>
+      <p id="dice-result"></p>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section id="calculator" class="tab-content hidden">
+    <div id="calculator-app">
+      <div id="calc-display">0</div>
+      <div>
+        <button class="control" data-action="clear">C</button>
+        <button class="control" data-action="backspace">⌫</button>
+        <button class="operator" data-action="÷">÷</button>
+        <button class="operator" data-action="×">×</button>
+      </div>
+      <div>
+        <button class="number" data-action="7">7</button>
+        <button class="number" data-action="8">8</button>
+        <button class="number" data-action="9">9</button>
+        <button class="operator" data-action="-">-</button>
+      </div>
+      <div>
+        <button class="number" data-action="4">4</button>
+        <button class="number" data-action="5">5</button>
+        <button class="number" data-action="6">6</button>
+        <button class="operator" data-action="+">+</button>
+      </div>
+      <div>
+        <button class="number" data-action="1">1</button>
+        <button class="number" data-action="2">2</button>
+        <button class="number" data-action="3">3</button>
+        <button class="equals" data-action="equals">=</button>
+      </div>
+      <div>
+        <button class="number" style="width:150px" data-action="0">0</button>
+        <button class="number" data-action=".">.</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bonus Feature -->
+  <section id="bonus" class="tab-content hidden">
+    <div id="bonus-section">
+      <p>Feeling lucky? Click the button to get a random motivational quote!</p>
+      <button id="quote-btn">Get Quote</button>
+      <p id="bonus-result"></p>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Tab navigation
+  const tabs = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(btn => btn.classList.remove('active'));
+      tab.classList.add('active');
+
+      const target = tab.getAttribute('data-tab');
+      contents.forEach(content => {
+        content.id === target ? content.classList.remove('hidden') : content.classList.add('hidden');
+      });
+    });
+  });
+
+  // Bank Transfer form submission
+  document.getElementById('bank-form').addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Bank transfer submitted! (Demo purpose)');
+    e.target.reset();
+  });
+
+  // Airtime Recharge form submission
+  document.getElementById('airtime-form').addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Airtime recharge submitted! (Demo purpose)');
+    e.target.reset();
+  });
+
+  // Dice Game
+  const diceBtn = document.getElementById('roll-dice-btn');
+  const diceResult = document.getElementById('dice-result');
+  diceBtn.addEventListener('click', () => {
+    const roll = Math.floor(Math.random() * 6) + 1;
+    diceResult.textContent = `You rolled a ${roll}!`;
+  });
+
+  // Calculator logic
+  const display = document.getElementById('calc-display');
+  let currentInput = '';
+
+  function calculate(expr) {
+    try {
+      expr = expr.replace(/×/g, '*').replace(/÷/g, '/');
+      // eslint-disable-next-line no-new-func
+      return Function('"use strict";return (' + expr + ')')();
+    } catch {
+      return 'Error';
+    }
+  }
+
+  document.querySelectorAll('#calculator-app button').forEach(button => {
+    button.addEventListener('click', () => {
+      const action = button.getAttribute('data-action');
+
+      if (action === 'clear') {
+        currentInput = '';
+        display.textContent = '0';
+      } else if (action === 'backspace') {
+        currentInput = currentInput.slice(0, -1);
+        display.textContent = currentInput || '0';
+      } else if (action === 'equals') {
+        if (currentInput) {
+          const result = calculate(currentInput);
+          display.textContent = result;
+          currentInput = result.toString();
+        }
+      } else {
+        const operators = ['+', '-', '×', '÷'];
+        if (operators.includes(action)) {
+          if (currentInput === '' || operators.includes(currentInput.slice(-1))) {
+            return;
+          }
+          currentInput += action;
+        } else {
+          if (action === '.') {
+            const parts = currentInput.split(/[\+\-\×\÷]/);
+            const lastNumber = parts[parts.length - 1];
+            if (lastNumber.includes('.')) return;
+          }
+          currentInput += action;
+        }
+        display.textContent = currentInput;
+      }
+    });
+  });
+
+  // Bonus motivational quotes
+  const quotes = [
+    "Believe you can and you're halfway there.",
+    "Stay positive, work hard, make it happen.",
+    "Success is not final; failure is not fatal: It is the courage to continue that counts.",
+    "Dream big and dare to fail.",
+    "Don't watch the clock; do what it does. Keep going."
+  ];
+
+  const quoteBtn = document.getElementById('quote-btn');
+  const bonusResult = document.getElementById('bonus-result');
+
+  quoteBtn.addEventListener('click', () => {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    bonusResult.textContent = quotes[randomIndex];
+  });
+</script>
+
+</body>
+</html>
